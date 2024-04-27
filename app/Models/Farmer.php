@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Doctor extends Model
+class Farmer extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function bookings()
+    public function products()
     {
-        return $this->hasMany(Booking::class);
+        return $this->hasMany(Product::class);
     }
 }

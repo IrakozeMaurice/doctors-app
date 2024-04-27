@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
   <!-- Styles -->
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
   <script type="application/javascript" src="{{ asset('js/jquery-3.5.1.min.js') }}"></script>
@@ -64,7 +65,7 @@
       <!-- Divider -->
       <hr class="sidebar-divider d-none d-md-block" />
       <!-- Nav Item - Reports Collapse Menu -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a
           class="nav-link collapsed"
           href="#"
@@ -86,7 +87,7 @@
             <a class="collapse-item" href="#">Report 2</a>
           </div>
         </div>
-      </li>
+      </li> -->
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
         <button class="rounded-circle border-0" id="sidebarToggle"></button>

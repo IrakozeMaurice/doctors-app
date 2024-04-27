@@ -12,12 +12,17 @@
 
                 <div class="card-body p-0">
                     <ul class="list-group">
-                        <a class="list-group-item list-group-item-action bg-dark text-white" href="#">Dashboard</a>
-                        <a class="list-group-item list-group-item-action" href="#">New </a>
-                        <a class="list-group-item list-group-item-action" href="#">All </a>
-                        <a class="list-group-item list-group-item-action" href="#">Action 1</a>
-                        <a class="list-group-item list-group-item-action" href="#">Action 2</a>
-                        <a class="list-group-item list-group-item-action" href="#">My Profile</a>
+                        <a class="list-group-item list-group-item-action active" href="#"><span><i class="fa fa-tachometer" aria-hidden="true"></i>
+                        </span> Dashboard</a>
+                        <a class="list-group-item list-group-item-action" href="{{route('dashboard.create-product')}}"><span><i class="fa fa-plus-square" aria-hidden="true"></i>
+                        </span> Add product</a>
+                        <a class="list-group-item list-group-item-action" href="{{route('dashboard.list-products')}}">
+                            <span><i class="fa fa-th-list" aria-hidden="true"></i>
+                            </span> All products</a>
+                        <a class="list-group-item list-group-item-action" href="{{route('dashboard.list-bookings')}}"><span><i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        </span> Bookings</a>
+                        <a class="list-group-item list-group-item-action" href="{{route('dashboard.profile')}}"><span><i class="fa fa-user" aria-hidden="true"></i>
+                        </span> My Profile</a>
                     </ul>
                 </div>
             </div>
@@ -34,91 +39,75 @@
                         </div>
                     @endif
 
-
-                    <div class="row mt-3">
-                        <div class="col-4">
-                            <a href="#" class="custom-link">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <img class="img-custom" src="{{ asset('images/plant1.jpg') }}" alt="">
-                                        <h2 class="text-center">5</h2>
-                                        <h6>Total One</h6>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-4">
-                            <a href="#" class="custom-link">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <img class="img-custom" src="{{ asset('images/plant2.jpg') }}" alt="">
-                                        <h2 class="text-center">3</h2>
-                                        <h6>Total 2</h6>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-4">
-                            <a href="#" class="custom-link">
-                                <div class="card text-center">
-                                    <div class="card-body">
-                                        <img class="img-custom" src="{{ asset('images/plant3.jpg') }}" alt="">
-                                        <h2 class="text-center">13</h2>
-                                        <h6>Total Three</h6>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
+                    <div>
+                        <p class="text-primary"><b>Recently added products</b></p>
                     </div>
                     <div class="row mt-3">
-                        <div class="col-md-6">
-                            <h6 class="text-muted">Lorem Summary</h6>
-                            <table class="table table-hover table-light">
-                                <tr>
-                                    <td>#</td>
-                                    <td>Lorem Ipsum</td>
-                                    <td>4</td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Lorem Ipsum</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Lorem Ipsum</td>
-                                    <td>6</td>
-                                </tr>
-                                <tr>
-                                    <td>#</td>
-                                    <td>Lorem Ipsum</td>
-                                    <td>9</td>
-                                </tr>
-                            </table>
+                        @forelse($recentProducts as $product)
+                        <div class="col-4">
+                            <a href="#" class="custom-link">
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <img class="img-custom" src="{{ asset('files/' . $product->photo) }}" alt="">
+                                        <h5 class="text-center pt-2"><b>{{$product->name}}</b></h5>
+                                        <p class="text-dark"><b>{{$product->quantity}} {{$product->quantity_description}}</b></p class="text-dark">
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                        <div class="col-md-6">
-                            <h6 class="text-muted">Other details</h6>
-                            <table class="table table-hover table-secondary">
-                                        <tr>
-                                            <td>lorem ipsum</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>lorem ipsum</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>lorem ipsum</td>
-                                            <td>0</td>
-                                        </tr>
-                                        <tr>
-                                            <td>lorem ipsum</td>
-                                            <td>0</td>
-                                        </tr>
-                            </table>
-                        </div>
+                        @empty
+                        <p class="px-3"><small><b>No products found</b></small></p>
+                        @endforelse
                     </div>
+                    @if(count($mostBookings) > 0)
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <h6 class="text-dark">Most bookings</h6>
+                                <table class="table table-hover table-light">
+                                    <thead>
+                                        <tr>
+                                        <th>#</th>
+                                        <th class="text-center">Product name</th>
+                                        <th class="text-center">N<sup>o</sup> of Bookings</th>
+                                        <th class="text-center">Action</th>
+                                    </tr>
+                                    </thead>
+                                    @foreach($mostBookings as $booking)
+                                    @if($booking->bookings == 0)
+                                      @continue
+                                    @endif
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td class="text-center">{{$booking->name}}</td>
+                                        <td class="text-center">{{$booking->bookings}}</td>
+                                        <td class="text-center"><a href="{{route('dashboard.show-product-bookings',$booking->id)}}"><u>View</u></a></td>
+                                    </tr>
+                                    @endforeach
+                                </table>
+                            </div>
+                            <!-- <div class="col-md-6">
+                                <h6 class="text-dark">Other details</h6>
+                                <table class="table table-hover table-secondary">
+                                            <tr>
+                                                <td>lorem ipsum</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>lorem ipsum</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>lorem ipsum</td>
+                                                <td>0</td>
+                                            </tr>
+                                            <tr>
+                                                <td>lorem ipsum</td>
+                                                <td>0</td>
+                                            </tr>
+                                </table>
+                            </div> -->
+                        </div>
+                    @endif
             </div>
         </div>
     </div>

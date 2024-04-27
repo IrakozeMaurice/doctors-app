@@ -10,6 +10,7 @@ class DoctorUser extends Authenticatable
     use HasFactory;
 
     protected $fillable = [
+        'license',
         'name',
         'email',
         'password',

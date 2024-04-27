@@ -20,16 +20,17 @@
           <th class="text-center">Email</th>
           <th class="text-center">Phone</th>
           <th class="text-center">Address</th>
-          <th class="text-center">Action</th>
+          <!-- <th class="text-center">Action</th> -->
         </tr>
       </thead>
       <tbody>
-          <tr class="clickable-row">
-            <td>xxxxxxxx</td>
-            <td>xxxxxxxx</td>
-            <td>xxxxxxxx</td>
-            <td>xxxxxxxx</td>
-            <td style="padding-left: 0px; padding-right: 0px;">
+        @foreach($farmers as $farmer)
+          <tr>
+            <td>{{$farmer->firstname}} {{$farmer->lastname}}</td>
+            <td>{{$farmer->email}}</td>
+            <td>{{$farmer->phone}}</td>
+            <td>{{$farmer->address}}</td>
+            <!-- <td style="padding-left: 0px; padding-right: 0px;">
               <form style="display:inline;" action="#" method="POST">
                 @csrf
                   <button type="submit" class="btn btn-sm bg-success text-white" style="width:45%;">Edit</button>
@@ -38,8 +39,9 @@
                 @csrf
                   <button type="submit" class="btn btn-sm bg-danger text-white" style="width:45%;">Delete</button>
                 </form>
-            </td>
+            </td> -->
           </tr>
+        @endforeach
       </tbody>
       <tfoot>
         <tr>
@@ -47,7 +49,7 @@
           <th class="text-center"></th>
           <th class="text-center"></th>
           <th class="text-center"></th>
-          <th class="text-center"></th>
+          <!-- <th class="text-center"></th> -->
         </tr>
       </tfoot>
     </table>

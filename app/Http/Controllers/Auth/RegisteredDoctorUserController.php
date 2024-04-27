@@ -36,7 +36,7 @@ class RegisteredDoctorUserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'license' => ['required', 'string', 'max:255'],
+            'license' => ['required', 'string', 'max:10', 'unique:doctor_users'],
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -47,6 +47,7 @@ class RegisteredDoctorUserController extends Controller
         if ($license) {
             // DOCTOR EXISTS IN THE SYSTEM
             $doctorUser = DoctorUser::create([
+                'license' => $request->license,
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
@@ -57,6 +58,7 @@ class RegisteredDoctorUserController extends Controller
             Auth::login($doctorUser);
 
             if (auth()->guard('doctor')->attempt([
+                'license' => $request->license,
                 'email' => $request->email,
                 'password' => $request->password,
             ])) {

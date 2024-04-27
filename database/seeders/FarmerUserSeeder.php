@@ -16,14 +16,14 @@ class FarmerUserSeeder extends Seeder
     public function run()
     {
         //create farmer user
-        User::insert([
-            [
-                'firstname' => 'farmer1',
-                'lastname' => 'user',
-                'phone' => '0788555555',
-                'email' => 'farmer@example.com',
-                'password' => Hash::make('aaaaaaaa'), // aaaaaaaa
-            ]
-        ]);
+        // User::insert([
+        //     [
+        //         'firstname' => 'farmer1',
+        //         'lastname' => 'user',
+        //         'phone' => '0788555555',
+        //         'email' => 'farmer@example.com',
+        //         'password' => Hash::make('aaaaaaaa'), // aaaaaaaa
+        //     ]
+        // ]);
     }
 }

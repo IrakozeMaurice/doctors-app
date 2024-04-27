@@ -12,8 +12,13 @@
           alt="Auca logo"></a> -->
     </div>
   </div>
+  @if (session('message'))
+        <div class="alert alert-success text-center" role="alert">
+            {{ session('message') }}
+        </div><br>
+    @endif
   <div>
-    <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-plus"></i>Add doctor</a><br><br>
+    <a href="{{route('admin.dashboard.create-doctor')}}" class="btn btn-sm btn-primary"><i class="fa fa-fw fa-plus"></i>Add doctor</a><br><br>
     <table id="tableSearch" class="table table-bordered text-center small">
       <thead>
         <tr>
@@ -25,22 +30,22 @@
         </tr>
       </thead>
       <tbody>
-          <tr class="clickable-row">
-            <td>xxxxxxxx</td>
-            <td>xxxxxxxx</td>
-            <td>xxxxxxxx</td>
-            <td>xxxxxxxx</td>
+        @foreach($doctors as $doctor)
+          <tr>
+            <td>{{$doctor->firstname}} {{$doctor->lastname}}</td>
+            <td>{{$doctor->email}}</td>
+            <td>{{$doctor->phone}}</td>
+            <td>{{$doctor->address}}</td>
             <td style="padding-left: 0px; padding-right: 0px;">
-              <form style="display:inline;" action="#" method="POST">
+                  <a href="{{route('admin.dashboard.edit-doctor',$doctor->id)}}" class="btn btn-sm bg-success text-white" style="width:45%;">Edit</a>
+              <form style="display:inline;" action="{{route('admin.dashboard.delete-doctor',$doctor->id)}}" method="POST">
                 @csrf
-                  <button type="submit" class="btn btn-sm bg-success text-white" style="width:45%;">Edit</button>
-                </form>
-                <form style="display:inline;" action="#" method="POST">
-                @csrf
+                @method('DELETE')
                   <button type="submit" class="btn btn-sm bg-danger text-white" style="width:45%;">Delete</button>
-                </form>
+              </form>
             </td>
           </tr>
+        @endforeach
       </tbody>
       <tfoot>
         <tr>
